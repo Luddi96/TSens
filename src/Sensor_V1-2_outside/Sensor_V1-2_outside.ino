@@ -93,11 +93,11 @@ void loop() {
   before2 = before;
   before = millis();
 
-  //Code from here
+  /***************************
+  User code may start here
+  ***************************/
+  
   bme.takeForcedMeasurement();
-  /*int uv = 0;
-  int rain = 0;
-  measUVRain(&uv, &rain);*/
 
   uint16_t tx_temp = round(10.0*bme.readTemperature());
   uint16_t tx_hum = round(10.0*bme.readHumidity());
@@ -112,29 +112,10 @@ void loop() {
   
   radio.stopListening();
   radio.write(&tx_arr, sizeof(tx_arr));
-  /*
-  String out = "";
-  out += "M3;";
-  out += after-before2;
-  out += ";";
-  out += round(100*volt);
-  out += ";";
-  out += round(10.0*bme.readTemperature());
-  out += ";";
-  out += round(10.0*bme.readHumidity());
-  out += ";";
-  out += round(bme.readPressure() / 100.0F);
-  out += ";";
-  out += uv;
-  out += ";";
-  out += rain;
-  out += " ";
-  char cstr[out.length()];
-  out.toCharArray(cstr, out.length());
-  radio.stopListening();
-  radio.write(&cstr, out.length());
-  //Serial.println(out);*/
-  //Code to here
+  
+  /***************************
+  User code sould end here
+  ***************************/
   
   after = millis();
   //Go to sleep

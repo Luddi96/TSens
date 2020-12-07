@@ -57,8 +57,10 @@ public class Test_RF24 {
 
 		while(1)
 		{
-        rf24.startListening();
+        if (rf24.available()) {
+			rf24.startListening();
         rf24.read(data32);
+		}
 		}
 
         rf24.terminate();

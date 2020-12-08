@@ -11,8 +11,8 @@ radio.begin() #construct NRF module
 radio.maskIRQ(1,0,0) #enable Rx interrupt only
 radio.startListening() #listen
 
-rx = "0KEVN" #server adress
-tx = "1KEVN" #static sensor adress (needs to be made dynamic)
+rx = "1KEVN" #server adress
+tx = "0KEVN" #static sensor adress (needs to be made dynamic)
 
 rxb = bytearray(rx, 'utf-8') #transfer to byte arr
 txb = bytearray(tx, 'utf-8') #trandfer to byte arr
@@ -34,6 +34,20 @@ def rxInt(channel): #interrupt handler
 
 
 GPIO.add_event_detect(18, GPIO.FALLING, callback = rxInt) #add interrupt to pin
+
+while True:
+    sendText("Hallo")
+    print("Sent")
+    time.sleep(0.5)
+    
+    
+
+def sendText(txt): #send data to sensor
+    radio.stopListening()
+    time.sleep(0.2)
+    arr = bytearray(txt, 'utf-8')
+    radio.write(arr[:payload_size])
+    radio.startListening()
 
 import signal #sleep
 signal.pause()

@@ -35,6 +35,13 @@ def rxInt(channel): #interrupt handler
 
 GPIO.add_event_detect(18, GPIO.FALLING, callback = rxInt) #add interrupt to pin
 
+def sendText(txt): #send data to sensor
+    radio.stopListening()
+    time.sleep(0.2)
+    arr = bytearray(txt, 'utf-8')
+    radio.write(arr[:payload_size])
+    radio.startListening()
+
 while True:
     sendText("Hallo")
     print("Sent")
@@ -42,12 +49,7 @@ while True:
     
     
 
-def sendText(txt): #send data to sensor
-    radio.stopListening()
-    time.sleep(0.2)
-    arr = bytearray(txt, 'utf-8')
-    radio.write(arr[:payload_size])
-    radio.startListening()
+
 
 import signal #sleep
 signal.pause()

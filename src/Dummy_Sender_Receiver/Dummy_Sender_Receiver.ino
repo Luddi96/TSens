@@ -242,6 +242,12 @@ void initNRF()
   Serial.print("Enabling NRF...");
   #endif
   radio.begin();
+  radio.setPALevel(RF24_PA_HIGH);
+  radio.setChannel(126);
+  radio.setPayloadSize(16);
+  radio.setDataRate(RF24_250KBPS);
+  radio.setRetries(5,5);
+  radio.setCRCLength(RF24_CRC_16);
   radio.stopListening();
   if(role == 1)
   {
